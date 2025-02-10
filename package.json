@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "discord.js": "^14.16.1",
+    "dotenv": "^16.4.5",
+    "minecraft-server-util": "^5.4.4",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.3",
+    "node-fetch": "^3.3.2"
+  }
+}

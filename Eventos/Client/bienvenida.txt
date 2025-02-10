@@ -1,0 +1,48 @@
+const { EmbedBuilder } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
+const path = require('path');
+const fs = require('fs');
+/*
+async function bienvenida(member) {
+    const canvas = createCanvas(700, 250);
+    const ctx = canvas.getContext('2d');
+
+    // Cargar imagen de fondo
+    const background = await loadImage(path.join(__dirname, 'fnd.jpeg'));
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+    // Dibujar avatar del usuario en el centro
+    const avatar = await loadImage(member.user.displayAvatarURL({ format: 'png' }));
+    const avatarSize = 128;
+    const centerX = (canvas.width / 2) - (avatarSize / 2);
+    const centerY = (canvas.height / 2) - (avatarSize / 2);
+    ctx.beginPath();
+    ctx.arc(centerX + (avatarSize / 2), centerY + (avatarSize / 2), avatarSize / 2, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(avatar, centerX, centerY, avatarSize, avatarSize);
+
+    // Guardar la imagen en un buffer
+    const attachment = canvas.toBuffer();
+
+    // Crear embed con la imagen generada
+    const embed = new EmbedBuilder()
+        .setTitle('MSP | 2024')
+        .setDescription(`Bienvenido ${member.user.tag}`)
+        .setTimestamp()
+        .setColor("#0a99a3")
+        .setFooter({
+            text: "Configurando servidor..."
+        })
+        .setImage('attachment://bienvenida.png'); // Esta línea se mantiene
+
+    const channelId = '1204247875501031455';
+    const channel = member.guild.channels.cache.get(channelId);
+    if (channel) {
+        channel.send({ embeds: [embed], files: [{ attachment, name: 'bienvenida.png' }] });
+    } else {
+        console.error("El canal de bienvenida no existe");
+    }
+}
+*/
+module.exports = { bienvenida };
