@@ -61,5 +61,4 @@ module.exports = {
     },
 };
 
-// En el manejador de eventos principal (event handler)
 

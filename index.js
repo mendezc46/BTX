@@ -26,12 +26,11 @@ client.on('interactionCreate', async interaction => {
 client.on('messageCreate', (message) => {
     if (message.author.bot) return;
 
-    const categoryId = "1254525800481292309"; // Cambia esto por la categoría específica
-    const roleId = "1254525595430289548"; // Cambia esto por el ID del rol específico
+    const categoryId = "1254525800481292309";
+    const roleId = "1254525595430289548";
     const keywords = ["ayuda", "ayudar", "una duda", "una pregunta"];
     const isKeyword = keywords.some(keyword => message.content.toLowerCase().includes(keyword));
 
-    // Verificar si el autor tiene el rol específico
     if (message.member.roles.cache.has(roleId)) return;
 
     if (isKeyword && message.channel.parentId !== categoryId) {
@@ -45,21 +44,17 @@ client.on('messageCreate', (message) => {
 
 (async () => {
     try {
-        // Conexión a MongoDB
         await mongoose.connect(process.env.MONGO_URI, {
         });
         console.log("Conectado a MongoDB");
 
-        // Inicio del bot
         await client.login(process.env.TOKEN);
         console.log("Bot iniciado");
 
-        // Cargar eventos y comandos
         await loadEvents(client);
         await loadSlash(client);
         console.log("Se cargaron los comandos");
 
-        // Mensaje en canal específico al iniciar
         const canalId = "1289848708602789910";
         const canal = client.channels.cache.get(canalId);
         if (canal) {

@@ -10,10 +10,8 @@ module.exports = {
         const port = 19204;
 
         try {
-            // Realizar la consulta al servidor de Minecraft
             const response = await status(ip, port);
             
-            // Crear un embed con la información del servidor
             const embed = new EmbedBuilder()
                 .setColor("#00FF00")
                 .setTitle("Estado del Servidor de Minecraft")
@@ -26,7 +24,6 @@ module.exports = {
             await interaction.reply({ embeds: [embed] });
 
         } catch (error) {
-            // Si hay un error (por ejemplo, si el servidor no está en línea)
             const embed = new EmbedBuilder()
                 .setColor("#FF0000")
                 .setTitle("Estado del Servidor de Minecraft")

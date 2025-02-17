@@ -5,7 +5,6 @@ module.exports = {
 	once: true,
 
 	async execute(client) {
-		// Función para obtener la cantidad total de usuarios
 		const getTotalUsers = () => {
 			return client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
 		};
@@ -40,6 +39,6 @@ module.exports = {
 				],
 				status: estado[option].status
 			});
-		}, 5000); // Cambia el estado cada 5 segundos
+		}, 5000);
 	}
 };

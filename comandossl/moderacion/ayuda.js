@@ -7,9 +7,9 @@ module.exports = {
         {
             name: "nombre",
             description: "El nombre de la ayuda que deseas obtener.",
-            type: 3, // STRING type
+            type: 3, 
             required: true,
-            autocomplete: true, // Habilita el autocompletado
+            autocomplete: true,
         },
     ],
     async execute(client, interaction, args) {

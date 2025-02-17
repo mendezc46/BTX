@@ -7,13 +7,12 @@ module.exports = {
         {
             name: "nombre",
             description: "El nombre de la ayuda que deseas eliminar.",
-            type: 3, // STRING type
+            type: 3,
             required: true,
-            autocomplete: true, // Habilita el autocompletado
+            autocomplete: true, 
         },
     ],
     async execute(client, interaction, args) {
-        // Verificar si el usuario tiene el rol específico
         const roleId = '1254337555902763008';
         if (!interaction.member.roles.cache.has(roleId)) {
             return await interaction.reply({ content: 'No tienes permisos para usar este comando.', ephemeral: true });

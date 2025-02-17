@@ -1,10 +1,8 @@
 const { EmbedBuilder } = require('discord.js');
 
 async function bienvenida(member) {
-    // Obtener el conteo de usuarios del servidor
     const totalUsuarios = member.guild.memberCount;
 
-    // Crear el embed con una descripción atractiva
     const embed = new EmbedBuilder()
         .setTitle('💻 Bienvenido a MSX | 2024 ⚒️')
         .setDescription(`
@@ -22,12 +20,12 @@ async function bienvenida(member) {
         .setTimestamp()
         .setFooter({
             text: "MSX | 2024",
-            iconURL: 'https://i.imgur.com/n04xosC.png', // Puedes usar un ícono opcional
+            iconURL: 'https://i.imgur.com/n04xosC.png',
         })
-        .setThumbnail('https://i.imgur.com/9U9ylXu.gif') // Mostrar el avatar del usuario
+        .setThumbnail('https://i.imgur.com/9U9ylXu.gif') 
 
-    // Enviar el mensaje en el canal de bienvenida
-    const channelId = '1310734381601788046'; // Reemplaza con el ID del canal
+
+    const channelId = '1310734381601788046';
     const channel = member.guild.channels.cache.get(channelId);
 
     if (channel) {

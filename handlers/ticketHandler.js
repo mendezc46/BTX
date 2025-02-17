@@ -130,8 +130,8 @@ async function handlerTI(interaction) {
             console.log("Nick:", nick);
             console.log("Problema:", problema);
 
-            const staffRoleId = "1254525595430289548"; // Reemplaza con el ID del rol del staff
-            const category = "1254604536568348724"; // Reemplaza con el ID de la categoría donde se crearán los tickets
+            const staffRoleId = "1254525595430289548";
+            const category = "1254604536568348724";
 
             async function createTicket(interaction, category, nick, problema) {
                 try {
@@ -261,7 +261,7 @@ async function handlerTI(interaction) {
                     const cerrar = new ButtonBuilder()
                         .setCustomId('cerrarTicket')
                         .setLabel('Cerrar Ticket')
-                        .setStyle(4); // Estilo rojo para cerrar
+                        .setStyle(4);
 
                     const row = new ActionRowBuilder()
                         .addComponents(cerrar);
@@ -281,11 +281,9 @@ async function handlerTI(interaction) {
             try {
                 await interaction.deferUpdate();
         
-                // Cerrar el ticket: prohibir que el usuario escriba en el canal
                 const everyoneRole = interaction.guild.roles.everyone;
                 await interaction.channel.permissionOverwrites.edit(everyoneRole, { SendMessages: false });
         
-                // Primer embed indicando quién cerró el ticket
                 const embedCerrado = new EmbedBuilder()
                     .setColor("#791B08")
                     .setTitle('Ticket Cerrado')
@@ -293,7 +291,6 @@ async function handlerTI(interaction) {
         
                 await interaction.channel.send({ embeds: [embedCerrado] });
         
-                // Segundo embed agradeciendo por usar el servicio
                 const embedGracias = new EmbedBuilder()
                     .setColor("#085D77")
                     .setTitle('Gracias por usar este servicio!')
@@ -302,12 +299,12 @@ async function handlerTI(interaction) {
                 const botonBorrar = new ButtonBuilder()
                     .setCustomId('borrarCanal')
                     .setLabel('🗑️ Borrar Canal')
-                    .setStyle(4); // Estilo rojo para borrar
+                    .setStyle(4); 
         
                 const botonReabrir = new ButtonBuilder()
                     .setCustomId('reabrirTicket')
                     .setLabel('🔓 Reaperturar Ticket')
-                    .setStyle(3); // Estilo verde para reabrir
+                    .setStyle(3);
         
                 const l1 = new ActionRowBuilder()
                     .addComponents(botonBorrar, botonReabrir);
@@ -322,7 +319,6 @@ async function handlerTI(interaction) {
                     if (i.customId === 'borrarCanal') {
                         collector.stop('borrado');
                     } else if (i.customId === 'reabrirTicket') {
-                        // Verificar si el usuario tiene el permiso de MuteMembers
                         if (!i.member.permissions.has('MuteMembers')) {
                             await i.reply({ content: 'No tienes permiso para reaperturar el ticket.', ephemeral: true });
                             return;
@@ -335,11 +331,9 @@ async function handlerTI(interaction) {
                     if (message.deletable) await message.delete();
         
                     if (reason === 'borrado') {
-                        // Obtener todos los mensajes del canal antes de eliminarlo
                         const messages = await interaction.channel.messages.fetch({ limit: 100 });
                         const logMessages = messages.map(m => `${m.author.tag}: ${m.content}`).reverse().join('\n');
         
-                        // Incluir información del ticket en el archivo
                         let ticketInfo = `Ticket Cerrado: ${interaction.channel.name}\n`;
                         const embedMessage = messages.find(msg => msg.embeds.length > 0);
                         if (embedMessage) {
@@ -350,28 +344,21 @@ async function handlerTI(interaction) {
                             });
                             ticketInfo += `\n--- Historial de Mensajes ---\n`;
                         }
-        
-                        // Guardar los mensajes en un archivo de texto
                         const logFileName = `ticket-${interaction.channel.name}.txt`;
                         const logFilePath = path.join(__dirname, logFileName);
                         fs.writeFileSync(logFilePath, `${ticketInfo}\n${logMessages}`);
         
-                        // Enviar el archivo de texto a un canal específico
-                        const logChannelId = '1290495277001605120'; // Reemplaza con el ID del canal donde quieres enviar el archivo
+                        const logChannelId = '1290495277001605120';
                         const logChannel = await interaction.guild.channels.fetch(logChannelId);
                         const attachment = new AttachmentBuilder(logFilePath);
                         await logChannel.send({ content: `Historial del ticket ${interaction.channel.name}`, files: [attachment] });
-        
-                        // Eliminar el canal después de enviar el archivo
                         await interaction.channel.delete();
-        
-                        // Eliminar el archivo local después de enviarlo
                         fs.unlinkSync(logFilePath);
                     } else if (reason === 'reabierto') {
-                        // Reaperturar el ticket: permitir que el usuario escriba en el canal nuevamente
+
                         await interaction.channel.permissionOverwrites.edit(everyoneRole, { SendMessages: true });
         
-                        // Embed informando que el ticket ha sido reaperturado
+
                         const embedReaperturado = new EmbedBuilder()
                             .setColor("#64CD1E")
                             .setTitle('Ticket Reaperturado')

@@ -7,19 +7,18 @@ module.exports = {
         {
             name: 'nombre',
             description: 'Nombre de la ayuda',
-            type: 3, // STRING
+            type: 3,
             required: true,
         },
         {
             name: 'contenido',
             description: 'Contenido de la ayuda',
-            type: 3, // STRING
+            type: 3, 
             required: true,
         }
     ],
 
     async execute(client, interaction) {
-        // Verificar si el usuario tiene el rol específico
         const roleId = '1254337555902763008';
         if (!interaction.member.roles.cache.has(roleId)) {
             return await interaction.reply({ content: 'No tienes permisos para usar este comando.', ephemeral: true });
